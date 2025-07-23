@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { json } from '@remix-run/node';
 import type { LinksFunction } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
+import { useLoaderData } from '@remix-run/react';
 import WeeklySummary from '~/components/WeeklySummary';
 import IndustryAnalysis from '~/components/IndustryAnalysis';
 import Chatbot from '~/components/Chatbot';
@@ -54,20 +54,7 @@ export default function Analysis() {
 
 
   return (
-    <>
-      <div className="header">
-        <Link to="/" className="back-btn">
-          ← 뉴스 홈
-        </Link>
-        <div className="header-content">
-          <h1>🔍 AI 뉴스 키워드 분석</h1>
-          <p className="subtitle">주간 트렌드와 산업별 분석을 한눈에</p>
-        </div>
-        <button className="subscribe-btn" onClick={() => setSubscribeModalOpen(true)}>
-          📧 주간 인사이트 구독하기
-        </button>
-      </div>
-
+    <div className="analysis-page-container">
       <div className="main-container">
         <div className="weekly-summary-container">
           <WeeklySummary weeklyKeywords={weeklyKeywords} onKeywordClick={(keyword, startDate, endDate, region) => {
@@ -94,6 +81,6 @@ export default function Analysis() {
         isOpen={isSubscribeModalOpen}
         onClose={() => setSubscribeModalOpen(false)}
       />
-    </>
+    </div>
   );
 } 

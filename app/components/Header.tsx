@@ -10,17 +10,8 @@ export default function Header({ onSubscribeClick }: HeaderProps) {
       <div className="logo-section">
         <Link to="/" className="logo">
           <span style={{ fontSize: '24px' }}>📺</span>
-          <h1>News TUBE GPT v2</h1>
+          <h1>NewsGPT</h1>
         </Link>
-      </div>
-
-      <div className="search-container">
-        <div className="search-box">
-          <input type="text" className="search-input" placeholder="뉴스 키워드 검색..." id="searchInput" />
-          <button className="search-btn">
-            <span>🔍</span>
-          </button>
-        </div>
       </div>
 
       <div className="header-actions">
@@ -30,4 +21,4 @@ export default function Header({ onSubscribeClick }: HeaderProps) {
       </div>
     </div>
   );
-} 
+}
