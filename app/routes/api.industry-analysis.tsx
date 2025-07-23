@@ -15,7 +15,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     const response = await fetch(`${API_BASE_URL}/industry-analysis`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ industry, keyword })
+        body: JSON.stringify({ industry_perspective: industry, target_keyword: keyword })
     });
 
     if (!response.ok) {
