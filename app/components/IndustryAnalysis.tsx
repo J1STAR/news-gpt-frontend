@@ -1,5 +1,6 @@
 import { useFetcher } from '@remix-run/react';
 import { useState, useEffect } from 'react';
+import { marked } from 'marked';
 
 type AnalysisData = {
   analysis: string;
@@ -12,17 +13,19 @@ type IndustryAnalysisProps = {
 
 export default function IndustryAnalysis({ selectedKeyword }: IndustryAnalysisProps) {
   const fetcher = useFetcher<AnalysisData>();
-  const [activeIndustry, setActiveIndustry] = useState('사회');
+  const [activeIndustry, setActiveIndustry] = useState<string | null>(null);
   
   const industries = ['사회', '경제', 'IT/과학', '생활/문화', '세계'];
 
   useEffect(() => {
-    if (selectedKeyword) {
-      const formData = new FormData();
-      formData.append('industry', activeIndustry);
-      formData.append('keyword', selectedKeyword);
-      fetcher.submit(formData, { method: 'post', action: '/api/industry-analysis' });
+    if (!selectedKeyword || !activeIndustry) {
+      return;
     }
+
+    const formData = new FormData();
+    formData.append('industry', activeIndustry);
+    formData.append('keyword', selectedKeyword);
+    fetcher.submit(formData, { method: 'post', action: '/api/industry-analysis' });
   }, [selectedKeyword, activeIndustry]);
 
   return (
@@ -49,14 +52,14 @@ export default function IndustryAnalysis({ selectedKeyword }: IndustryAnalysisPr
                   <span style={{ color: '#667eea' }}>👍</span>
                   긍정적/일반 분석
               </div>
-              <div style={{ lineHeight: 1.7 }}>{fetcher.data.analysis}</div>
+              <div style={{ lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.analysis || '긍정적 분석을 생성할 수 없습니다.') }} />
             </div>
             <div className="counter-analysis-section">
                 <div className="counter-title">
                     <span style={{ color: '#e74c3c' }}>🤔</span>
                     비판적/회의적 분석
                 </div>
-                <div style={{ lineHeight: 1.7 }}>{fetcher.data.counter_analysis || '반대 의견을 생성할 수 없습니다.'}</div>
+                <div style={{ lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.counter_analysis || '비판적 분석을 생성할 수 없습니다.') }} />
             </div>
           </div>
         ) : (

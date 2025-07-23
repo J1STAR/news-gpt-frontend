@@ -98,11 +98,21 @@ body {
 }
 
 .main-container {
-    max-width: 1400px;
+    max-width: 1600px;
     /* 1200px에서 1400px로 확대 */
     margin: 0 auto;
     padding: 0 20px;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.weekly-summary-container {
+    flex: 2;
+}
+
+.chatbot-container {
+    flex: 1;
 }
 
 .weekly-summary {
@@ -112,8 +122,6 @@ body {
     margin: 30px 0;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     border: 1px solid #333;
-    min-height: 700px;
-    /* 600px에서 700px로 확대 */
 }
 
 .summary-container {
@@ -123,8 +131,6 @@ body {
 
 .summary-half {
     flex: 1;
-    min-height: 620px;
-    /* 520px에서 620px로 확대 */
 }
 
 .summary-title {
@@ -152,11 +158,14 @@ body {
 }
 
 .week-section {
-    margin-bottom: 40px;
     padding: 20px;
     background: #2a2a2a;
     border-radius: 12px;
     border: 1px solid #333;
+}
+
+.week-section:not(:last-child) {
+    margin-bottom: 40px;
 }
 
 .week-header {
@@ -239,7 +248,6 @@ body {
     gap: 8px;
     /* 10px에서 8px로 줄여서 Top 5가 한줄에 더 잘 들어가도록 */
     flex-wrap: wrap;
-    min-height: 150px;
     /* 120px에서 150px로 확대하여 Top 5 키워드 수용 */
     align-content: flex-start;
     justify-content: flex-start;
@@ -360,10 +368,12 @@ body {
     max-width: 800px;
     width: 90%;
     max-height: 80vh;
-    overflow-y: auto;
+    overflow: visible;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     z-index: 1001;
     border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-header {
@@ -373,6 +383,10 @@ body {
     margin-bottom: 20px;
     border-bottom: 2px solid #333;
     padding-bottom: 15px;
+}
+
+#modal-articles {
+    overflow-y: auto;
 }
 
 .close-btn {
@@ -465,6 +479,9 @@ body {
 }
 
 .chatbot-section {
+    position: sticky;
+    top: 0;
+
     background: #1a1a1a;
     border-radius: 16px;
     padding: 40px;

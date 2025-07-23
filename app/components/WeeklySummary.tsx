@@ -1,22 +1,30 @@
+import { useState } from 'react';
 import type { WeeklyKeywordData, Keyword } from '~/services/analysis.server';
 
 type WeekSectionProps = {
   weekLabel: string;
   dateRangeLabel: string;
+  startDate: string;
+  endDate: string;
   keywords: Keyword[];
   region: 'domestic' | 'global';
-  onKeywordClick: (keyword: string) => void;
+  onKeywordClick: (keyword: string, startDate: string, endDate: string, region: 'domestic' | 'global') => void;
 };
 
-function WeekSection({ weekLabel, dateRangeLabel, keywords, region, onKeywordClick }: WeekSectionProps) {
+function WeekSection({ dateRangeLabel, startDate, endDate, keywords, region, onKeywordClick }: WeekSectionProps) {
+  const [keyword, setKeyword] = useState<string | null>(null);
+  
   return (
     <div className="week-section">
       <div className="week-header">
-        <h3 className="week-title">{weekLabel} ({dateRangeLabel})</h3>
+        <h3 className="week-title">{dateRangeLabel}</h3>
       </div>
       <div className="keywords-container">
         {keywords.map(kw => (
-          <button key={kw.keyword} className="keyword-tag" data-region={region} onClick={() => onKeywordClick(kw.keyword)}>
+          <button key={kw.keyword} className={`keyword-tag ${keyword === kw.keyword ? 'selected' : ''}`} data-region={region} onClick={() => {
+            setKeyword(kw.keyword);
+            onKeywordClick(kw.keyword, startDate, endDate, region);
+          }}>
             {kw.keyword}
           </button>
         ))}
@@ -27,7 +35,7 @@ function WeekSection({ weekLabel, dateRangeLabel, keywords, region, onKeywordCli
 
 type WeeklySummaryProps = {
     weeklyKeywords: WeeklyKeywordData[];
-    onKeywordClick: (keyword: string) => void;
+    onKeywordClick: (keyword: string, startDate: string, endDate: string, region: 'domestic' | 'global') => void;
 };
 
 export default function WeeklySummary({ weeklyKeywords, onKeywordClick }: WeeklySummaryProps) {

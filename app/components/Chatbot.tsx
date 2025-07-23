@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { marked } from 'marked';
 
 const API_BASE_URL = 'http://127.0.0.1:8000';
 
@@ -92,7 +93,7 @@ export default function Chatbot() {
                 {messages.map((msg, index) => (
                     <div key={index} className="chat-message">
                         {msg.isHtml ? (
-                            <div className={`chat-${msg.sender}`} dangerouslySetInnerHTML={{ __html: msg.text }} />
+                            <div className={`chat-${msg.sender}`} dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }} />
                         ) : (
                             <div className={`chat-${msg.sender}`}>{msg.text}</div>
                         )}

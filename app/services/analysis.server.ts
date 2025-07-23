@@ -10,6 +10,8 @@ export type Keyword = {
 export type WeeklyKeywordData = {
   weekLabel: string;
   dateRangeLabel: string;
+  startDate: string;
+  endDate: string;
   domestic: Keyword[];
   global: Keyword[];
 };
@@ -57,6 +59,8 @@ export async function getWeeklyKeywords(): Promise<WeeklyKeywordData[]> {
       return {
         weekLabel: week.weekLabel,
         dateRangeLabel: week.dateRangeLabel,
+        startDate: week.start,
+        endDate: week.end,
         domestic,
         global,
       };
