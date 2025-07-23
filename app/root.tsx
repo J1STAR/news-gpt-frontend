@@ -8,8 +8,6 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import styles from "./tailwind.css?url";
-import headerStyles from "~/styles/components/header.css?url";
-import navigationStyles from "~/styles/components/navigation.css?url";
 import Header from '~/components/Header';
 import Navigation from '~/components/Navigation';
 import SubscribeModal from "./components/SubscribeModal";
@@ -18,8 +16,6 @@ import { useState } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
-  { rel: "stylesheet", href: headerStyles },
-  { rel: "stylesheet", href: navigationStyles },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {

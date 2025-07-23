@@ -40,35 +40,43 @@ export default function ArticleModal({ isOpen, onClose, keyword, articles, isLoa
   if (!isOpen) return null;
 
   return (
-    <div 
-        className="modal" 
-        id="article-modal" 
-        style={{ display: 'block' }}
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm"
+      id="article-modal"
     >
-      <div className="modal-content" ref={modalRef}>
-        <div className="modal-header">
-          <h3 id="modal-title">{keyword} 관련 기사</h3>
-          <button className="close-btn" onClick={onClose}>&times;</button>
+      <div
+        className="relative flex h-auto max-h-[80vh] w-11/12 max-w-3xl flex-col rounded-2xl border border-gray-700 bg-gray-800 p-7 shadow-2xl"
+        ref={modalRef}
+      >
+        <div className="mb-5 flex items-center justify-between border-b-2 border-gray-700 pb-4">
+          <h3 id="modal-title" className="text-xl font-bold text-white">{keyword} 관련 기사</h3>
+          <button className="text-3xl text-gray-400 transition-colors hover:text-white" onClick={onClose}>&times;</button>
         </div>
-        <div id="modal-articles" className="modal-articles-scroll">
+        <div id="modal-articles" className="overflow-y-auto pr-2">
             {isLoading ? (
-                 <div style={{ textAlign: 'center', padding: '40px' }}>
-                    <div className="typing-dots" style={{ fontSize: '18px', color: '#5A7DBC' }}>
+                 <div className="flex justify-center p-10">
+                    <div className="text-lg font-semibold text-blue-400">
                         ⚡ 최신 기사를 검색 중...
                     </div>
                  </div>
             ) : articles.length > 0 ? (
-                <div className="articles-grid">
+                <div className="grid gap-5">
                 {articles.map((article, index) => (
-                    <a key={index} href={article.url} target="_blank" rel="noopener noreferrer" className="article-card">
-                    <div className="article-date">{article.date}</div>
-                    <div className="article-title">{article.title}</div>
-                    <div className="article-summary">{article.summary}</div>
+                    <a
+                      key={index}
+                      href={article.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block rounded-xl border-l-4 border-blue-600 bg-gray-700 p-5 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-teal-400 hover:bg-gray-600/70 hover:shadow-lg"
+                    >
+                      <div className="text-xs text-gray-400 group-hover:text-teal-300">{article.date}</div>
+                      <div className="mb-2 font-semibold text-white group-hover:text-teal-200">{article.title}</div>
+                      <p className="text-sm text-gray-300">{article.summary}</p>
                     </a>
                 ))}
                 </div>
             ) : (
-                <p>관련 기사를 찾을 수 없습니다.</p>
+                <p className="py-10 text-center text-gray-400">관련 기사를 찾을 수 없습니다.</p>
             )}
         </div>
       </div>

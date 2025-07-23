@@ -74,47 +74,66 @@ export default function Chatbot() {
     };
 
     return (
-        <div className="chatbot-section">
-            <h2 className="section-title">💬 AI 뉴스 분석 챗봇</h2>
+        <div className="sticky top-0 my-8 min-h-[600px] rounded-2xl border border-gray-700 bg-gray-800/50 p-10 shadow-2xl">
+            <h2 className="mb-5 inline-block border-b-4 border-teal-400 pb-2 text-2xl font-bold text-white">💬 AI 뉴스 분석 챗봇</h2>
 
-            <div className="chat-suggestions">
-                <div className="suggestion-title">💡 이런 질문을 해보세요:</div>
-                <div className="suggestions-container">
+            <div className="mb-5 rounded-xl bg-gray-800 p-5 shadow-inner">
+                <div className="mb-4 text-sm font-semibold text-white">💡 이런 질문을 해보세요:</div>
+                <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-2.5">
                     {defaultSuggestions.map((suggestion, index) => (
-                        <button key={index} className="suggestion-item" onClick={() => handleSendMessage(suggestion)} disabled={isLoading}>
+                        <button
+                            key={index}
+                            className="cursor-pointer rounded-full border border-gray-600 bg-gray-700 px-4 py-2.5 text-center text-xs font-semibold text-gray-300 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:shadow-blue-500/30 disabled:opacity-50"
+                            onClick={() => handleSendMessage(suggestion)}
+                            disabled={isLoading}>
                             {suggestion}
                         </button>
                     ))}
                 </div>
             </div>
 
-            <div id="chat-history" className="chat-history">
+            <div id="chat-history" className="mb-5 h-96 min-h-[200px] overflow-y-auto rounded-xl border border-gray-700 bg-gray-900/50 p-4 shadow-inner">
                 {messages.map((msg, index) => (
-                    <div key={index} className="chat-message">
-                        <div className={`chat-${msg.sender}`} dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }} />
+                    <div key={index} className="mb-4 flex flex-col">
+                        <div
+                            className={`max-w-[70%] rounded-2xl p-3 shadow-md ${
+                                msg.sender === 'user'
+                                    ? 'self-end rounded-br-lg bg-blue-600 text-white'
+                                    : 'self-start rounded-bl-lg bg-gray-700 text-white'
+                            }`}
+                            dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }}
+                        />
                     </div>
                 ))}
                 {isLoading && (
-                    <div className="chat-message">
-                        <div className="chat-bot typing-dots">
-                            <span>.</span><span>.</span><span>.</span>
+                    <div className="mb-4 flex flex-col">
+                        <div className="max-w-[70%] self-start rounded-2xl rounded-bl-lg bg-gray-700 p-3 text-white shadow-md">
+                            <div className="flex items-center gap-1">
+                                <span className="h-2 w-2 animate-bounce rounded-full bg-blue-300 [animation-delay:-0.3s]"></span>
+                                <span className="h-2 w-2 animate-bounce rounded-full bg-blue-300 [animation-delay:-0.15s]"></span>
+                                <span className="h-2 w-2 animate-bounce rounded-full bg-blue-300"></span>
+                            </div>
                         </div>
                     </div>
                 )}
             </div>
 
-            <form onSubmit={handleSubmit} className="chat-input-container">
+            <form onSubmit={handleSubmit} className="flex gap-2.5">
                 <input
                     type="text"
                     id="chat-input"
-                    className="chat-input"
+                    className="flex-1 rounded-full border-2 border-gray-600 bg-gray-800 px-4 py-3 text-sm text-white outline-none transition-colors duration-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="궁금한 점을 물어보세요..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     disabled={isLoading}
                     autoComplete="off"
                 />
-                <button type="submit" id="chat-send" className="chat-send" disabled={isLoading}>
+                <button
+                    type="submit"
+                    id="chat-send"
+                    className="cursor-pointer rounded-full border-none bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-300 ease-in-out hover:-translate-y-px hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/40 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-60 disabled:shadow-none"
+                    disabled={isLoading}>
                     전송
                 </button>
             </form>

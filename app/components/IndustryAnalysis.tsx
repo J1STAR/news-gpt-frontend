@@ -30,13 +30,15 @@ export default function IndustryAnalysis({ selectedKeyword, onIndustryClick }: I
   }, [fetcher, selectedKeyword, activeIndustry]);
 
   return (
-    <div className="industry-analysis">
-      <h2 className="section-title">이런 시각은 어때요?</h2>
-      <div className="industry-tabs">
+    <div className="my-8 min-h-[600px] rounded-2xl border border-gray-700 bg-gray-800/50 p-10 shadow-2xl">
+      <h2 className="mb-5 inline-block border-b-4 border-teal-400 pb-2 text-2xl font-bold text-white">이런 시각은 어때요?</h2>
+      <div className="mb-6 flex flex-wrap gap-3">
         {industries.map(industry => (
           <button 
             key={industry} 
-            className={`industry-tab ${activeIndustry === industry ? 'active' : ''}`} 
+            className={`cursor-pointer rounded-lg border-2 border-gray-600 bg-gray-700 px-5 py-3.5 font-semibold text-gray-300 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-px hover:border-blue-600 hover:bg-gray-600 ${
+              activeIndustry === industry ? 'border-blue-500 bg-blue-600 text-white shadow-lg shadow-blue-500/30' : ''
+            }`}
             onClick={() => {
               setActiveIndustry(industry);
               onIndustryClick(industry);
@@ -46,28 +48,28 @@ export default function IndustryAnalysis({ selectedKeyword, onIndustryClick }: I
           </button>
         ))}
       </div>
-      <div className="analysis-content">
+      <div className="min-h-[200px] rounded-xl bg-gray-800 p-6 leading-relaxed text-gray-300 shadow-inner">
         {fetcher.state === 'loading' ? (
-          <div className="loading">🤔 다양한 관점에서 분석 중...</div>
+          <div className="text-center text-gray-400">🤔 다양한 관점에서 분석 중...</div>
         ) : fetcher.data ? (
-          <div className="analysis-grid">
-            <div className="analysis-section">
-              <div className="analysis-title">
-                  <span style={{ color: '#667eea' }}>👍</span>
+          <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div className="rounded-lg border-l-4 border-blue-500 bg-gray-800 p-5 shadow-md">
+              <div className="mb-4 flex items-center gap-2 font-semibold text-blue-300">
+                  <span>👍</span>
                   긍정적/일반 분석
               </div>
-              <div style={{ lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.analysis || '긍정적 분석을 생성할 수 없습니다.') }} />
+              <div className="prose prose-invert max-w-none prose-p:my-2 prose-ul:my-2 prose-ol:my-2" dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.analysis || '긍정적 분석을 생성할 수 없습니다.') }} />
             </div>
-            <div className="counter-analysis-section">
-                <div className="counter-title">
-                    <span style={{ color: '#e74c3c' }}>🤔</span>
+            <div className="rounded-lg border-l-4 border-red-500 bg-gray-800 p-5 shadow-md">
+                <div className="mb-4 flex items-center gap-2 font-semibold text-red-400">
+                    <span>🤔</span>
                     비판적/회의적 분석
                 </div>
-                <div style={{ lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.counter_analysis || '비판적 분석을 생성할 수 없습니다.') }} />
+                <div className="prose prose-invert max-w-none prose-p:my-2 prose-ul:my-2 prose-ol:my-2" dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.counter_analysis || '비판적 분석을 생성할 수 없습니다.') }} />
             </div>
           </div>
         ) : (
-          <div className="loading">분석할 키워드를 선택해주세요</div>
+          <div className="text-center text-gray-400">분석할 키워드를 선택해주세요</div>
         )}
       </div>
     </div>
