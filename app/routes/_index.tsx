@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import { json, LoaderFunctionArgs } from '@remix-run/node';
+import { json, LinksFunction, LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import Header from '~/components/Header';
 import Sidebar from '~/components/Sidebar';
 import NewsCard from '~/components/NewsCard';
 import SubscribeModal from '~/components/SubscribeModal';
 import { getNews } from '~/services/news.server';
+import indexStyles from "~/styles/index.css?url";
+
+export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: indexStyles },
+];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
