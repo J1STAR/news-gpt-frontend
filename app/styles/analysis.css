@@ -11,6 +11,76 @@ body {
     color: #fff;
 }
 
+.back-btn {
+    background: #303030;
+    color: white;
+    border: 1px solid #333;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-btn:hover {
+    background: #404040;
+    border-color: #00D9C0;
+    transform: translateX(-2px);
+    box-shadow: 0 4px 12px rgba(0, 217, 192, 0.2);
+}
+
+.header h1 {
+    font-size: 2.5em;
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: #00D9C0;
+}
+
+.header .subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+    color: #E9ECEF;
+    margin-bottom: 20px;
+}
+
+
+
+.header h1 {
+    font-size: 2.5em;
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: #00D9C0;
+}
+
+.header .subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+    color: #E9ECEF;
+    margin-bottom: 20px;
+}
+
+.subscribe-btn {
+    background: linear-gradient(135deg, #00D9C0, #00B8A9);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 217, 192, 0.3);
+}
+
+.subscribe-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 217, 192, 0.4);
+}
+
 .main-container {
     max-width: 1600px;
     /* 1200px에서 1400px로 확대 */
@@ -22,7 +92,7 @@ body {
 }
 
 .weekly-summary-container {
-    flex: 2;
+    flex: 1;
 }
 
 .chatbot-container {

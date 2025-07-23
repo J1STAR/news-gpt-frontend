@@ -9,9 +9,10 @@ type AnalysisData = {
 
 type IndustryAnalysisProps = {
   selectedKeyword: string | null;
+  onIndustryClick: (industry: string) => void;
 };
 
-export default function IndustryAnalysis({ selectedKeyword }: IndustryAnalysisProps) {
+export default function IndustryAnalysis({ selectedKeyword, onIndustryClick }: IndustryAnalysisProps) {
   const fetcher = useFetcher<AnalysisData>();
   const [activeIndustry, setActiveIndustry] = useState<string | null>(null);
   
@@ -26,7 +27,7 @@ export default function IndustryAnalysis({ selectedKeyword }: IndustryAnalysisPr
     formData.append('industry', activeIndustry);
     formData.append('keyword', selectedKeyword);
     fetcher.submit(formData, { method: 'post', action: '/api/industry-analysis' });
-  }, [selectedKeyword, activeIndustry]);
+  }, [fetcher, selectedKeyword, activeIndustry]);
 
   return (
     <div className="industry-analysis">
@@ -36,7 +37,10 @@ export default function IndustryAnalysis({ selectedKeyword }: IndustryAnalysisPr
           <button 
             key={industry} 
             className={`industry-tab ${activeIndustry === industry ? 'active' : ''}`} 
-            onClick={() => setActiveIndustry(industry)}
+            onClick={() => {
+              setActiveIndustry(industry);
+              onIndustryClick(industry);
+            }}
           >
             {industry}
           </button>

@@ -18,7 +18,6 @@ const initialMessage: Message = {
 • 키워드 트렌드: "반도체 최근 동향은?"<br />
 • 비교 분석: "AI vs 반도체 비교"<br />
 • 일반 질문: "현재 주요 뉴스는?"`,
-    isHtml: true,
 };
 
 
@@ -92,11 +91,7 @@ export default function Chatbot() {
             <div id="chat-history" className="chat-history">
                 {messages.map((msg, index) => (
                     <div key={index} className="chat-message">
-                        {msg.isHtml ? (
-                            <div className={`chat-${msg.sender}`} dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }} />
-                        ) : (
-                            <div className={`chat-${msg.sender}`}>{msg.text}</div>
-                        )}
+                        <div className={`chat-${msg.sender}`} dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }} />
                     </div>
                 ))}
                 {isLoading && (

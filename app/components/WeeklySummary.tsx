@@ -12,8 +12,6 @@ type WeekSectionProps = {
 };
 
 function WeekSection({ dateRangeLabel, startDate, endDate, keywords, region, onKeywordClick }: WeekSectionProps) {
-  const [keyword, setKeyword] = useState<string | null>(null);
-  
   return (
     <div className="week-section">
       <div className="week-header">
@@ -21,8 +19,7 @@ function WeekSection({ dateRangeLabel, startDate, endDate, keywords, region, onK
       </div>
       <div className="keywords-container">
         {keywords.map(kw => (
-          <button key={kw.keyword} className={`keyword-tag ${keyword === kw.keyword ? 'selected' : ''}`} data-region={region} onClick={() => {
-            setKeyword(kw.keyword);
+          <button key={kw.keyword} className={`keyword-tag`} data-region={region} onClick={() => {
             onKeywordClick(kw.keyword, startDate, endDate, region);
           }}>
             {kw.keyword}

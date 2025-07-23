@@ -4,7 +4,7 @@ export default function Navigation() {
   return (
     <nav className="navigation-bar">
       <div className="nav-tab-item">
-        <NavLink to="/" className={({ isActive }) => "nav-tab" + (isActive ? " active" : "")}>
+        <NavLink to="/trending" className={({ isActive }) => "nav-tab" + (isActive ? " active" : "")}>
           트렌드
         </NavLink>
       </div>

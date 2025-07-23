@@ -29,6 +29,7 @@ export default function Analysis() {
   const [isLoadingArticles, setIsLoadingArticles] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState<{ startDate: string, endDate: string} | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<'domestic' | 'global' | null>(null);
+  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
 
   useEffect(() => {
     if (selectedKeyword && selectedDateRange && selectedRegion) {
@@ -63,7 +64,9 @@ export default function Analysis() {
               setSelectedRegion(region);
               setArticleModalOpen(true);
           }}/>
-          <IndustryAnalysis selectedKeyword={selectedKeyword} />
+          <IndustryAnalysis selectedKeyword={selectedKeyword} onIndustryClick={(industry) => {
+              setSelectedIndustry(industry);
+          }}/>
         </div>
         <div className="chatbot-container">
           <Chatbot />
