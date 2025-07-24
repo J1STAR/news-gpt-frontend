@@ -27,7 +27,7 @@ export default function IndustryAnalysisResults({ selectedKeyword, onIndustryCli
     formData.append('industry', activeIndustry);
     formData.append('keyword', selectedKeyword);
     fetcher.submit(formData, { method: 'post', action: '/api/industry-analysis' });
-  }, [fetcher, selectedKeyword, activeIndustry]);
+  }, [selectedKeyword, activeIndustry]);
 
   return (
     <div className="my-8 min-h-[600px] rounded-2xl border border-gray-700 bg-gray-800/50 p-10 shadow-2xl">
