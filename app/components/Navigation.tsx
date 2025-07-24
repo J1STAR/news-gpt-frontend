@@ -17,8 +17,14 @@ export default function Navigation() {
       </div>
 
       <div className="flex items-center justify-center">
-        <NavLink to="/analysis" className={navLinkClasses}>
+        <NavLink to="/industry-analysis" className={navLinkClasses}>
           산업 분석
+        </NavLink>
+      </div>
+
+      <div className="flex items-center justify-center">
+        <NavLink to="/job-analysis" className={navLinkClasses}>
+          직무 분석
         </NavLink>
       </div>
     </nav>

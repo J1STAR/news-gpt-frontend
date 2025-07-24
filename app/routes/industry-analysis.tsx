@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import WeeklySummary from '~/components/WeeklySummary';
-import IndustryAnalysis from '~/components/IndustryAnalysis';
+import IndustryAnalysisResults from '~/components/IndustryAnalysisResults';
 import Chatbot from '~/components/Chatbot';
 import ArticleModal from '~/components/ArticleModal';
 import SubscribeModal from '~/components/SubscribeModal';
-import { getWeeklyKeywords, WeeklyKeywordData } from '~/services/analysis.server';
+import { getWeeklyKeywords, WeeklyKeywordData } from '~/services/industry-analysis.server';
 import type { Article } from '~/services/news.server';
 
 export const loader = async () => {
@@ -14,7 +14,7 @@ export const loader = async () => {
   return json({ weeklyKeywords });
 };
 
-export default function Analysis() {
+export default function IndustryAnalysis() {
   const { weeklyKeywords } = useLoaderData<{ weeklyKeywords: WeeklyKeywordData[] }>();
   const [isArticleModalOpen, setArticleModalOpen] = useState(false);
   const [isSubscribeModalOpen, setSubscribeModalOpen] = useState(false);
@@ -50,13 +50,19 @@ export default function Analysis() {
     <div className="bg-gray-900 font-sans text-white min-h-screen">
       <div className="mx-auto flex max-w-screen-2xl flex-row gap-10 p-5">
         <div className="flex-[6_1_0]">
-          <WeeklySummary weeklyKeywords={weeklyKeywords} onKeywordClick={(keyword, startDate, endDate, region) => {
+          <WeeklySummary
+            weeklyKeywords={weeklyKeywords}
+            onKeywordClick={(keyword, startDate, endDate, region) => {
               setSelectedKeyword(keyword);
               setSelectedDateRange({ startDate, endDate });
               setSelectedRegion(region);
               setArticleModalOpen(true);
-          }}/>
-          <IndustryAnalysis selectedKeyword={selectedKeyword} onIndustryClick={(industry) => {
+            }}
+            activeKeyword={selectedKeyword}
+          />
+          <IndustryAnalysisResults
+            selectedKeyword={selectedKeyword}
+            onIndustryClick={(industry) => {
               // 나중에 산업별 분석 기능 구현 시 사용
               console.log('Selected Industry:', industry);
           }}/>

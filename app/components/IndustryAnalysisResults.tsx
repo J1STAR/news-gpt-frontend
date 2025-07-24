@@ -2,7 +2,7 @@ import { useFetcher } from '@remix-run/react';
 import { useState, useEffect } from 'react';
 import { marked } from 'marked';
 
-type AnalysisData = {
+type IndustryAnalysisData = {
   analysis: string;
   counter_analysis: string;
 };
@@ -12,8 +12,8 @@ type IndustryAnalysisProps = {
   onIndustryClick: (industry: string) => void;
 };
 
-export default function IndustryAnalysis({ selectedKeyword, onIndustryClick }: IndustryAnalysisProps) {
-  const fetcher = useFetcher<AnalysisData>();
+export default function IndustryAnalysisResults({ selectedKeyword, onIndustryClick }: IndustryAnalysisProps) {
+  const fetcher = useFetcher<IndustryAnalysisData>();
   const [activeIndustry, setActiveIndustry] = useState<string | null>(null);
   
   const industries = ['사회', '경제', 'IT/과학', '생활/문화', '세계'];
@@ -33,20 +33,25 @@ export default function IndustryAnalysis({ selectedKeyword, onIndustryClick }: I
     <div className="my-8 min-h-[600px] rounded-2xl border border-gray-700 bg-gray-800/50 p-10 shadow-2xl">
       <h2 className="mb-5 inline-block border-b-4 border-teal-400 pb-2 text-2xl font-bold text-white">이런 시각은 어때요?</h2>
       <div className="mb-6 flex flex-wrap gap-3">
-        {industries.map(industry => (
-          <button 
-            key={industry} 
-            className={`cursor-pointer rounded-lg border-2 border-gray-600 bg-gray-700 px-5 py-3.5 font-semibold text-gray-300 shadow-md transition-all duration-300 ease-in-out hover:-translate-y-px hover:border-blue-600 hover:bg-gray-600 ${
-              activeIndustry === industry ? 'border-blue-500 bg-blue-600 text-white shadow-lg shadow-blue-500/30' : ''
-            }`}
-            onClick={() => {
-              setActiveIndustry(industry);
-              onIndustryClick(industry);
-            }}
-          >
-            {industry}
-          </button>
-        ))}
+        {industries.map(industry => {
+          const isActive = activeIndustry === industry;
+          return (
+            <button
+              key={industry}
+              className={`cursor-pointer rounded-lg border-2 px-5 py-3.5 font-semibold shadow-md transition-all duration-300 ease-in-out hover:-translate-y-px ${
+                isActive
+                  ? 'border-blue-500 bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+                  : 'border-gray-600 bg-gray-700 text-gray-300 hover:border-gray-500 hover:bg-gray-600'
+              }`}
+              onClick={() => {
+                setActiveIndustry(industry);
+                onIndustryClick(industry);
+              }}
+            >
+              {industry}
+            </button>
+          );
+        })}
       </div>
       <div className="min-h-[200px] rounded-xl bg-gray-800 p-6 leading-relaxed text-gray-300 shadow-inner">
         {fetcher.state === 'loading' ? (

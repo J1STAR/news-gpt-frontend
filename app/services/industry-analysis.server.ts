@@ -4,6 +4,7 @@ const API_BASE_URL = "http://127.0.0.1:8000";
 
 export type Keyword = {
   keyword: string;
+  reason: string;
   count: number;
 };
 
@@ -36,12 +37,12 @@ async function fetchKeywords(
     // Return sample data on error
     return region === "domestic"
       ? [
-          { keyword: "전기차", count: 10 },
-          { keyword: "배터리", count: 8 },
+          { keyword: "전기차", count: 10, reason: "전기차 시장 성장" },
+          { keyword: "배터리", count: 8, reason: "배터리 시장 성장" },
         ]
       : [
-          { keyword: "Tesla", count: 20 },
-          { keyword: "Apple", count: 15 },
+          { keyword: "Tesla", count: 20, reason: "Tesla 시장 성장" },
+          { keyword: "Apple", count: 15, reason: "Apple 시장 성장" },
         ];
   }
 }

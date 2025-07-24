@@ -15,13 +15,13 @@ export default function Index() {
   const { news } = useLoaderData<typeof loader>();
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-900">
       <div className="mx-auto flex max-w-7xl gap-4 px-4 py-6">
         {/* <Sidebar activeCategory={category} /> */}
 
         <div className="flex-1">
           <div className="mb-6">
-            <h2 className="mb-2 text-2xl font-medium">이번 주 AI 뉴스 분석</h2>
+            <h2 className="mb-2 text-2xl font-medium text-white">이번 주 AI 뉴스 분석</h2>
             <p className="text-sm text-gray-400">AI가 분석한 최신 뉴스 트렌드와 키워드를 확인하세요</p>
           </div>
 
@@ -34,6 +34,6 @@ export default function Index() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
