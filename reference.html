@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TechPulse - IT News for Professionals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #007bff;
+        --background-light: #f8f9fa;
+        --card-light: #ffffff;
+        --text-primary-light: #212529;
+        --background-dark: #121212;
+        --card-dark: #1e1e1e;
+        --text-primary-dark: #e0e0e0;
+        --accent-color: #007bff;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .theme-toggle:focus {
+        outline: none;
+      }
+      .theme-toggle .sun-icon,
+      .theme-toggle .moon-icon {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+      html.dark .theme-toggle .sun-icon {
+        transform: rotate(90deg) scale(0);
+        opacity: 0;
+      }
+      html.dark .theme-toggle .moon-icon {
+        transform: rotate(0) scale(1);
+        opacity: 1;
+      }
+      .theme-toggle .moon-icon {
+        transform: rotate(-90deg) scale(0);
+        opacity: 0;
+        position: absolute;
+      }
+    </style>
+</head>
+<body class="bg-[var(--background-light)] text-[var(--text-primary-light)] dark:bg-[var(--background-dark)] dark:text-[var(--text-primary-dark)] transition-colors duration-300">
+<div class="relative flex size-full min-h-screen flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full bg-[var(--card-light)] dark:bg-[var(--card-dark)] shadow-md transition-colors duration-300">
+<div class="container mx-auto flex items-center justify-between whitespace-nowrap px-6 py-4">
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-3 text-2xl font-bold text-[var(--accent-color)]" href="#">
+<svg class="size-8" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+<span>TechPulse</span>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors" href="#">Home</a>
+<a class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors" href="#">Trending</a>
+<a class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors" href="#">Latest</a>
+<a class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors" href="#">Topics</a>
+<a class="text-sm font-medium hover:text-[var(--accent-color)] transition-colors" href="#">Bookmarks</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<svg class="size-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="block w-full rounded-lg border-none bg-gray-100 dark:bg-gray-800 py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)] focus:ring-opacity-50" placeholder="Search..." type="search"/>
+</div>
+<button class="theme-toggle relative flex size-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" onclick="document.documentElement.classList.toggle('dark')">
+<svg class="sun-icon size-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-6.364-.386l1.591-1.591M3 12h2.25m.386-6.364l1.591 1.591M12 9a3 3 0 100 6 3 3 0 000-6z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<svg class="moon-icon size-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.752 15.002A9.72 9.72 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<div class="size-10 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBwI_dYrzfVFxUVYVG82AJkjh-H2l7jGWFVPE-phtFrZMVizmKHL8BOwVlA2GIWLeTQgs5zPX_97G63uLJ8uWj87rY9ybcnL35dNwIEqx145JOeLkVMwqLNSHrRM0R2smlbaNyQcswKiM3v169NfKS1gdc_hk-YrYfH11tXyDHA5q9DW9v4L5hw5U6nungmHiKUeNbhbN7yftOGZeab2l9PAr0_d5Oy0zP_DEPxAFXMsWevXvyQen_5d_6uRdDC6u3TfZggJwwbkCE");'></div>
+</div>
+</div>
+</header>
+<main class="container mx-auto max-w-5xl flex-1 px-6 py-10">
+<h1 class="text-3xl font-bold tracking-tight md:text-4xl">Latest in Tech</h1>
+<div class="mt-6 flex flex-wrap gap-3">
+<a class="rounded-full bg-[var(--accent-color)] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600" href="#">All</a>
+<a class="rounded-full bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600" href="#">AI</a>
+<a class="rounded-full bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600" href="#">Cloud Computing</a>
+<a class="rounded-full bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600" href="#">Cybersecurity</a>
+<a class="rounded-full bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600" href="#">Web Development</a>
+</div>
+<div class="mt-8 grid gap-8">
+<a class="group block rounded-lg bg-[var(--card-light)] p-6 shadow-md transition-shadow duration-300 hover:shadow-xl dark:bg-[var(--card-dark)]" href="#">
+<div class="flex flex-col-reverse items-start gap-6 sm:flex-row">
+<div class="flex-1">
+<h2 class="text-xl font-bold group-hover:text-[var(--accent-color)]">The Future of AI in Software Development</h2>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  Explore how AI is transforming the software development lifecycle, from code generation to automated testing.
+                </p>
+<span class="mt-4 inline-block text-xs font-medium text-gray-500">Jan 15, 2024 · 5 min read</span>
+</div>
+<div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjeZbgHYSSwT7v30W8j972c-br09p2uTw6KQpgzVuFmdEgFUH7w5ekq3EmajpRLMjHEPPLScX-jX_5UxheoIkjPjXHgTyalaNBikAbsPcEuFLlFOVoCfMArfubHjmefuh6Owa6-veFTF8gvKcn6AIegNljNN0SynfTuf_HSvZgws348oZBVkai6gJdlzPISnrxk5bQ8Gea0Hy9AHr-iR2PgOmQ0FYHhTK7msDgsbSehDwFgP8crKyMrlek7FF2BPM7_Hoe_XecWPw");'></div>
+</div>
+</a>
+<a class="group block rounded-lg bg-[var(--card-light)] p-6 shadow-md transition-shadow duration-300 hover:shadow-xl dark:bg-[var(--card-dark)]" href="#">
+<div class="flex flex-col-reverse items-start gap-6 sm:flex-row">
+<div class="flex-1">
+<h2 class="text-xl font-bold group-hover:text-[var(--accent-color)]">Cloud Computing Trends for 2024</h2>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  A look at the latest trends in cloud computing, including serverless architecture, edge computing, and multi-cloud strategies.
+                </p>
+<span class="mt-4 inline-block text-xs font-medium text-gray-500">Jan 14, 2024 · 7 min read</span>
+</div>
+<div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuALLj2IGT2P8SszZ6Apeo9krIWJrA_AyQ_QnyC5YV7YB5C2x7my3E4W8ide05spBYN_NgJs5ks8qEJeTzPZ4ytsA8hnim5FVgme7-s7Nire-Z8n00IcWCGpWgLR8Gyj831ST1-OBrQfrcJcxUlY9XqhoyYAaU-ZOPamvjqntdoMF6a9BFKZqbcBOMJRN932fgWZ3HMg2yOP_S71qV6OkCxLMKLnJUluzKmi7TXHhz_UpEpLc-m4IqEnYBUuT2B50xBkyOhLwMwqmxk");'></div>
+</div>
+</a>
+<a class="group block rounded-lg bg-[var(--card-light)] p-6 shadow-md transition-shadow duration-300 hover:shadow-xl dark:bg-[var(--card-dark)]" href="#">
+<div class="flex flex-col-reverse items-start gap-6 sm:flex-row">
+<div class="flex-1">
+<h2 class="text-xl font-bold group-hover:text-[var(--accent-color)]">Cybersecurity Threats and Mitigation Strategies</h2>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">An overview of current cybersecurity threats and effective strategies for protecting your systems and data.</p>
+<span class="mt-4 inline-block text-xs font-medium text-gray-500">Jan 13, 2024 · 6 min read</span>
+</div>
+<div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsuncE9rsW7amVp79_M_9BfyLZUknAoD40ie5Wh9BEoiZfaSQGiNqNP1cE9ynOx-TcFOUbL31k6KlVGFGSSKFTTPTwKQfJXCV9YgtEIpWkp7vb2EunODDr_X9lzRvVPCwxR_uQbVNS54HQeBtyGMGpxp7i9VWWYJslFT2eGsD34EjooBOUj9gMf9pcPvsQLzN8HRCidywePSkCOh_n13S3wekhFadFV1zyEgwYCVZAMUL0UcNcS6EVqV7DPB8T0hOBTFMjQPLzV5U");'></div>
+</div>
+</a>
+<a class="group block rounded-lg bg-[var(--card-light)] p-6 shadow-md transition-shadow duration-300 hover:shadow-xl dark:bg-[var(--card-dark)]" href="#">
+<div class="flex flex-col-reverse items-start gap-6 sm:flex-row">
+<div class="flex-1">
+<h2 class="text-xl font-bold group-hover:text-[var(--accent-color)]">Modern Web Development Frameworks</h2>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  A comparison of popular web development frameworks, including React, Angular, and Vue.js, with insights into their strengths and use cases.
+                </p>
+<span class="mt-4 inline-block text-xs font-medium text-gray-500">Jan 12, 2024 · 8 min read</span>
+</div>
+<div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDa2BKnD_8uog51VqGnZ2fULidv8DJfIgbeO6zaa2jGrw9vG0ESEHgRDzQ_uJvwzTmR8r3PopPNf2B2Az5i8_EGUCIr9Zo6lVNZ1hN2SidE9Jdmm3Nthwm35aU4X3z4kWUUYr8ka1axZWTbFSSAtCuGZLEDvNShupl7Sb7-eHT7KAbrfohxP76NzEfc9M5AUCfj_-GD1T1P54xV3u08Mn0aXujsQ_MeNfhi99grLM3xAWeaVFjeB4OkM2ryJaoEnkc6J1LFI3uOUoI");'></div>
+</div>
+</a>
+<a class="group block rounded-lg bg-[var(--card-light)] p-6 shadow-md transition-shadow duration-300 hover:shadow-xl dark:bg-[var(--card-dark)]" href="#">
+<div class="flex flex-col-reverse items-start gap-6 sm:flex-row">
+<div class="flex-1">
+<h2 class="text-xl font-bold group-hover:text-[var(--accent-color)]">The Rise of Low-Code/No-Code Platforms</h2>
+<p class="mt-2 text-sm text-gray-600 dark:text-gray-400">An examination of the growing trend of low-code and no-code platforms and their impact on software development.</p>
+<span class="mt-4 inline-block text-xs font-medium text-gray-500">Jan 11, 2024 · 4 min read</span>
+</div>
+<div class="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA-OWhKTgT0h9ACeWw34_LBgniJdvqVQUpU0QIPoosJDBh2N451kK3KLX5lh1P0kG8HudfHI5KMO0TuIi7AenRfaQnMoLT8-P6VSKjqcvooa2W-4Ovhhh6n1AlZyc237Gobpd7oHdTx-xsTiB3T24iqUbgwKxXwDeAtZF8w7Bp1NLyx0woogTActhq98wE0eWnwoBP3OCWVEDiAyg8P33WU_hU0rTlu1ZjF0zri8mHYkZFlfXBsQMAf0gzeU0CVREoTlZsZS3iNfs0");'></div>
+</div>
+</a>
+</div>
+<div class="mt-10 flex items-center justify-center space-x-2">
+<a class="flex size-10 items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" href="#">
+<svg class="size-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" fill-rule="evenodd"></path>
+</svg>
+</a>
+<a class="flex size-10 items-center justify-center rounded-full bg-[var(--accent-color)] text-white text-sm font-medium" href="#">1</a>
+<a class="flex size-10 items-center justify-center rounded-full text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" href="#">2</a>
+<a class="flex size-10 items-center justify-center rounded-full text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" href="#">3</a>
+<a class="flex size-10 items-center justify-center rounded-full text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" href="#">4</a>
+<a class="flex size-10 items-center justify-center rounded-full text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" href="#">5</a>
+<a class="flex size-10 items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" href="#">
+<svg class="size-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</div>
+</main>
+</div>
+
+</body></html>

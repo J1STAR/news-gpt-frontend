@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
+import Header from '~/components/Header';
 import WeeklySummary from '~/components/WeeklySummary';
 import IndustryAnalysisResults from '~/components/IndustryAnalysisResults';
 import Chatbot from '~/components/Chatbot';
@@ -21,7 +22,7 @@ export default function IndustryAnalysis() {
   const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoadingArticles, setIsLoadingArticles] = useState(false);
-  const [selectedDateRange, setSelectedDateRange] = useState<{ startDate: string, endDate: string} | null>(null);
+  const [selectedDateRange, setSelectedDateRange] = useState<{ startDate: string, endDate: string } | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<'domestic' | 'global' | null>(null);
 
   useEffect(() => {
@@ -47,42 +48,55 @@ export default function IndustryAnalysis() {
   }, [selectedKeyword, selectedDateRange, selectedRegion]);
 
   return (
-    <div className="bg-gray-900 font-sans text-white min-h-screen">
-      <div className="mx-auto flex max-w-screen-2xl flex-row gap-10 p-5">
-        <div className="flex-[6_1_0]">
-          <WeeklySummary
-            weeklyKeywords={weeklyKeywords}
-            onKeywordClick={(keyword, startDate, endDate, region) => {
-              setSelectedKeyword(keyword);
-              setSelectedDateRange({ startDate, endDate });
-              setSelectedRegion(region);
-              setArticleModalOpen(true);
-            }}
-            activeKeyword={selectedKeyword}
-          />
-          <IndustryAnalysisResults
-            selectedKeyword={selectedKeyword}
-            onIndustryClick={(industry) => {
-              // 나중에 산업별 분석 기능 구현 시 사용
-              console.log('Selected Industry:', industry);
-          }}/>
-        </div>
-        <div className="flex-[4_1_0]">
-          <Chatbot />
-        </div>
-      </div>
+    <>
+      <Header />
+      <main className="container mx-auto max-w-7xl flex-1 px-6 py-10">
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl mb-8">산업 분석</h1>
 
-      <ArticleModal
-        isOpen={isArticleModalOpen}
-        onClose={() => setArticleModalOpen(false)}
-        keyword={selectedKeyword}
-        articles={articles}
-        isLoading={isLoadingArticles}
-      />
-      <SubscribeModal
-        isOpen={isSubscribeModalOpen}
-        onClose={() => setSubscribeModalOpen(false)}
-      />
-    </div>
+        <div className="flex flex-col lg:flex-row gap-10">
+          <div className="flex-[6_1_0]">
+            <div className="bg-[var(--card-light)] dark:bg-[var(--card-dark)] rounded-lg p-6 shadow-md mb-8">
+              <WeeklySummary
+                weeklyKeywords={weeklyKeywords}
+                onKeywordClick={(keyword, startDate, endDate, region) => {
+                  setSelectedKeyword(keyword);
+                  setSelectedDateRange({ startDate, endDate });
+                  setSelectedRegion(region);
+                  setArticleModalOpen(true);
+                }}
+                activeKeyword={selectedKeyword}
+              />
+            </div>
+
+            <div className="bg-[var(--card-light)] dark:bg-[var(--card-dark)] rounded-lg p-6 shadow-md">
+              <IndustryAnalysisResults
+                selectedKeyword={selectedKeyword}
+                onIndustryClick={(industry) => {
+                  console.log('Selected Industry:', industry);
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="flex-[4_1_0]">
+            <div className="bg-[var(--card-light)] dark:bg-[var(--card-dark)] rounded-lg p-6 shadow-md sticky top-24">
+              <Chatbot />
+            </div>
+          </div>
+        </div>
+
+        <ArticleModal
+          isOpen={isArticleModalOpen}
+          onClose={() => setArticleModalOpen(false)}
+          keyword={selectedKeyword}
+          articles={articles}
+          isLoading={isLoadingArticles}
+        />
+        <SubscribeModal
+          isOpen={isSubscribeModalOpen}
+          onClose={() => setSubscribeModalOpen(false)}
+        />
+      </main>
+    </>
   );
 } 
