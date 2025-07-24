@@ -33,7 +33,9 @@ export default function JobAnalysis() {
       ...week.global,
     ]);
 
-    const uniqueKeywords = [...new Set(allKeywords)];
+    const uniqueKeywords = allKeywords.filter((keyword, index, self) =>
+      index === self.findIndex((t) => t.keyword === keyword.keyword)
+    );
     return uniqueKeywords.sort(() => Math.random() - 0.5); // 섞기
   }, [weeklyKeywords]);
 
