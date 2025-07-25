@@ -128,6 +128,14 @@ export default function JobAnalysis() {
     return uniqueKeywords.sort(() => Math.random() - 0.5); // 섞기
   }, [weeklyKeywords]);
 
+  // 📍 새로운 상태 변수 추가: 직무 요약 토글 상태
+  const [isJobSummaryOpen, setIsJobSummaryOpen] = useState(false);
+
+  // 📍 토글 핸들러 함수
+  const toggleJobSummary = () => {
+    setIsJobSummaryOpen(prev => !prev);
+  };
+
   useEffect(() => {
     const handler = setTimeout(() => {
       const isValidJob = jobTitlesList.includes(jobTitle.trim());
@@ -345,12 +353,18 @@ export default function JobAnalysis() {
             </div>
           </div>
 
-          {/* 직무 요약 */}
+          {/* 직무 요약 - 이 부분을 수정합니다! */}
             <div className="rounded-lg bg-gray-100 p-6 dark:bg-gray-800">
-              <h3 className="mb-3 text-2xl font-semibold text-[var(--accent-color)]">직무 요약: {selectedJob}</h3>
-              {fetcher.state === 'loading' || fetcher.state === 'submitting' ? (
-                <div className="flex min-h-[100px] items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800/50">
-                  <p className="animate-pulse text-lg text-gray-500 dark:text-gray-400">🤔 AI가 직무의 핵심을 파악하고 있어요...</p>
+              <h3
+                className="mb-3 text-2xl font-semibold text-[var(--accent-color)] cursor-pointer" // cursor-pointer 추가
+                onClick={toggleJobSummary} // 클릭 이벤트 추가
+              >
+                직무 요약: {selectedJob} {isJobSummaryOpen ? '▲' : '▼'} {/* 아이콘 추가 */}
+              </h3>
+              {isJobSummaryOpen && ( // isJobSummaryOpen이 true일 때만 내용 표시
+                fetcher.state === 'loading' || fetcher.state === 'submitting' ? (
+                  <div className="flex min-h-[100px] items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800/50">
+                    <p className="animate-pulse text-lg text-gray-500 dark:text-gray-400">🤔 AI가 직무의 핵심을 파악하고 있어요...</p>
                 </div>
               ) : (
                 fetcher.data?.summary && (
@@ -359,10 +373,11 @@ export default function JobAnalysis() {
                     dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.summary) }}
                   />
                 )
+              )
               )}
             </div>
         </div>
       )}
     </main>
   );
-} 
+}
