@@ -3,7 +3,6 @@ import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import WeeklySummary from '~/components/WeeklySummary';
 import IndustryAnalysisResults from '~/components/IndustryAnalysisResults';
-import Chatbot from '~/components/Chatbot';
 import ArticleModal from '~/components/ArticleModal';
 import SubscribeModal from '~/components/SubscribeModal';
 import { getWeeklyKeywords, WeeklyKeywordData } from '~/services/industry-analysis.server';
@@ -48,8 +47,8 @@ export default function IndustryAnalysis() {
 
   return (
     <main className="container mx-auto max-w-7xl flex-1 px-6 py-10">
-      <div className="flex flex-row gap-10">
-        <div className="flex-[6_1_0]">
+      <div className="flex gap-10">
+        <div className="w-[40%]">
           <WeeklySummary
             weeklyKeywords={weeklyKeywords}
             onKeywordClick={(keyword, startDate, endDate, region) => {
@@ -60,15 +59,14 @@ export default function IndustryAnalysis() {
             }}
             activeKeyword={selectedKeyword}
           />
+        </div>
+        <div className="w-[60%]">
           <IndustryAnalysisResults
             selectedKeyword={selectedKeyword}
             onIndustryClick={(industry) => {
               // 나중에 산업별 분석 기능 구현 시 사용
               console.log('Selected Industry:', industry);
           }}/>
-        </div>
-        <div className="flex-[4_1_0]">
-          <Chatbot />
         </div>
       </div>
 
