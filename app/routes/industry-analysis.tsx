@@ -47,8 +47,8 @@ export default function IndustryAnalysis() {
   }, [selectedKeyword, selectedDateRange, selectedRegion]);
 
   return (
-    <div className="bg-gray-900 font-sans text-white min-h-screen">
-      <div className="mx-auto flex max-w-screen-2xl flex-row gap-10 p-5">
+    <main className="container mx-auto max-w-7xl flex-1 px-6 py-10">
+      <div className="flex flex-row gap-10">
         <div className="flex-[6_1_0]">
           <WeeklySummary
             weeklyKeywords={weeklyKeywords}
@@ -83,6 +83,6 @@ export default function IndustryAnalysis() {
         isOpen={isSubscribeModalOpen}
         onClose={() => setSubscribeModalOpen(false)}
       />
-    </div>
+    </main>
   );
 } 

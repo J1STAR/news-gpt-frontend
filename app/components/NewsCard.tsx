@@ -1,4 +1,5 @@
 import { Link } from "@remix-run/react";
+import { formatDate } from "~/utils/date.utils";
 
 type NewsCardProps = {
   id: number;
@@ -25,23 +26,25 @@ export default function NewsCard({
     ? `/news-detail/keyword=${encodeURIComponent(keyword)}&region=global`
     : `/news-detail/keyword=${encodeURIComponent(keyword)}`;
 
+  const formattedDate = formatDate(new Date(publishedAt));
+
   return (
-    <Link to={detailUrl} className="group block cursor-pointer overflow-hidden rounded-xl bg-gray-800/50 shadow-lg transition-all duration-200 ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-500/20">
-      <div className="relative flex h-44 w-full items-center justify-center overflow-hidden bg-gradient-to-br from-gray-700 to-teal-600/70">
-        <div className="z-10 text-5xl opacity-90 transition-transform duration-300 group-hover:scale-110">{thumbnail}</div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-      </div>
-      <div className="p-4">
-        <h3 className="mb-2 h-14 font-semibold text-white line-clamp-2">{title}</h3>
-        <div className="mb-3 flex items-center gap-2 text-xs text-gray-400">
-          <span>📊 {count}건</span>
-          <span>•</span>
-          <span>{publishedAt}</span>
-          {region === 'global' && <span className="font-semibold text-teal-400">• 🌍 해외</span>}
+    <Link to={detailUrl} className="group block rounded-lg bg-[var(--card-light)] p-6 shadow-md transition-shadow duration-300 hover:shadow-xl dark:bg-[var(--card-dark)]">
+      <div className="flex flex-col-reverse items-start gap-6 sm:flex-row">
+        <div className="flex-1">
+          <h2 className="text-xl font-bold group-hover:text-[var(--accent-color)]">{title}</h2>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            {insight}
+          </p>
+          <div className="mt-4 flex items-center gap-2 text-xs font-medium text-gray-500">
+            <span>📊 {count}건</span>
+            <span>•</span>
+            <span>{formattedDate}</span>
+            {region === 'global' && <span className="font-semibold text-teal-400">• 🌍 해외</span>}
+          </div>
         </div>
-        <div className="rounded-lg border-l-4 border-teal-500 bg-gray-700/50 p-3 text-sm text-gray-300">
-          <div className="mb-1 text-xs font-bold text-teal-400">AI 인사이트</div>
-          <p className="line-clamp-2">{insight}</p>
+        <div className="w-full sm:w-48 h-32 flex-shrink-0 rounded-lg bg-cover bg-center text-5xl flex items-center justify-center">
+          {thumbnail}
         </div>
       </div>
     </Link>

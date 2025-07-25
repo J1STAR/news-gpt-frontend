@@ -15,25 +15,21 @@ export default function Index() {
   const { news } = useLoaderData<typeof loader>();
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      <div className="mx-auto flex max-w-7xl gap-4 px-4 py-6">
-        {/* <Sidebar activeCategory={category} /> */}
+    <main className="container mx-auto max-w-5xl flex-1 px-6 py-10">
+      <div className="flex-1">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">이번 주 AI 뉴스 분석</h1>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">AI가 분석한 최신 뉴스 트렌드와 키워드를 확인하세요</p>
+        </div>
 
-        <div className="flex-1">
-          <div className="mb-6">
-            <h2 className="mb-2 text-2xl font-medium text-white">이번 주 AI 뉴스 분석</h2>
-            <p className="text-sm text-gray-400">AI가 분석한 최신 뉴스 트렌드와 키워드를 확인하세요</p>
-          </div>
-
-          <div className="mb-10 grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-5" id="newsGrid">
-            {news.length > 0 ? (
-              news.map((item) => <NewsCard key={item.id} {...item} />)
-            ) : (
-              <p>뉴스를 불러오는데 실패했습니다.</p>
-            )}
-          </div>
+        <div className="mt-8 grid gap-8">
+          {news.length > 0 ? (
+            news.map((item) => <NewsCard key={item.id} {...item} />)
+          ) : (
+            <p>뉴스를 불러오는데 실패했습니다.</p>
+          )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

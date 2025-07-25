@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-color: #007bff;
+  --background-light: #f8f9fa;
+  --card-light: #ffffff;
+  --text-primary-light: #212529;
+  --background-dark: #121212;
+  --card-dark: #1e1e1e;
+  --text-primary-dark: #e0e0e0;
+  --accent-color: #007bff;
+}
+
 html,
 body {
   @apply bg-white dark:bg-gray-950;
@@ -9,4 +20,12 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+.theme-toggle:focus {
+  outline: none;
 }
