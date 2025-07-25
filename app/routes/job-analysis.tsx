@@ -239,22 +239,6 @@ export default function JobAnalysis() {
           </h2>
 
           <div className="space-y-8">
-            {/* 직무 요약 */}
-            <div className="rounded-lg bg-gray-100 p-6 dark:bg-gray-800">
-              <h3 className="mb-3 text-2xl font-semibold text-[var(--accent-color)]">직무 요약: {submittedJobTitle}</h3>
-              {fetcher.state === 'loading' || fetcher.state === 'submitting' ? (
-                <div className="flex min-h-[100px] items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800/50">
-                  <p className="animate-pulse text-lg text-gray-500 dark:text-gray-400">🤔 AI가 직무의 핵심을 파악하고 있어요...</p>
-                </div>
-              ) : (
-                fetcher.data?.summary && (
-                  <div
-                    className="prose prose-invert max-w-none prose-p:my-2"
-                    dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.summary) }}
-                  />
-                )
-              )}
-            </div>
 
             {/* 긍정적/비판적 분석 */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -294,6 +278,23 @@ export default function JobAnalysis() {
               </div>
             </div>
           </div>
+
+          {/* 직무 요약 */}
+            <div className="rounded-lg bg-gray-100 p-6 dark:bg-gray-800">
+              <h3 className="mb-3 text-2xl font-semibold text-[var(--accent-color)]">직무 요약: {selectedJob}</h3>
+              {fetcher.state === 'loading' || fetcher.state === 'submitting' ? (
+                <div className="flex min-h-[100px] items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800/50">
+                  <p className="animate-pulse text-lg text-gray-500 dark:text-gray-400">🤔 AI가 직무의 핵심을 파악하고 있어요...</p>
+                </div>
+              ) : (
+                fetcher.data?.summary && (
+                  <div
+                    className="prose prose-invert max-w-none prose-p:my-2"
+                    dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.summary) }}
+                  />
+                )
+              )}
+            </div>
         </div>
       )}
     </main>
