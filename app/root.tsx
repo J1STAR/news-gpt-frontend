@@ -10,6 +10,7 @@ import type { LinksFunction } from "@remix-run/node";
 import styles from "./tailwind.css?url";
 import Header from '~/components/Header';
 import SubscribeModal from "./components/SubscribeModal";
+import ChatbotModal from "./components/ChatbotModal";
 import { useState } from "react";
 
 
@@ -22,6 +23,11 @@ export const links: LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
+  const [isChatbotModalOpen, setIsChatbotModalOpen] = useState(false);
+  
+  const toggleChatbotModal = () => {
+    setIsChatbotModalOpen(!isChatbotModalOpen);
+  };
 
   return (
     <html lang="en">
@@ -41,6 +47,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
             isOpen={isSubscribeModalOpen} 
             onClose={() => setIsSubscribeModalOpen(false)} 
           />
+          <ChatbotModal 
+            isOpen={isChatbotModalOpen} 
+            onClose={() => setIsChatbotModalOpen(false)}
+          />
+          <button
+            onClick={toggleChatbotModal}
+            className="fixed bottom-8 right-8 z-40 h-16 w-16 rounded-full bg-blue-600 text-white shadow-lg transition-transform hover:scale-110"
+            title="Open Chatbot"
+          >
+            <span className="text-3xl">🤖</span>
+          </button>
         </div>
       </body>
     </html>
