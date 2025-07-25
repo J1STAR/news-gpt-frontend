@@ -1,8 +1,11 @@
 import { json, LoaderFunction } from '@remix-run/node';
 import { useFetcher, useLoaderData } from '@remix-run/react';
-import { useEffect, useMemo, useState, useRef } from 'react';
-import { getWeeklyKeywords, WeeklyKeywordData, Keyword } from '~/services/industry-analysis.server';
+import { Info } from 'lucide-react';
 import { marked } from 'marked';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { getWeeklyKeywords, Keyword, WeeklyKeywordData } from '~/services/industry-analysis.server';
+// 모달 컴포넌트 import
+import JobSummaryModal from './JobSummaryModal';
 
 export const loader: LoaderFunction = async () => {
   const weeklyKeywords = await getWeeklyKeywords();
@@ -18,7 +21,7 @@ type JobAnalysisData = {
 };
 
 const jobTitlesList = [
-  // IT/개발
+    // IT/개발
   '프론트엔드 개발자',
   '백엔드 개발자',
   '풀스택 개발자',
@@ -108,10 +111,11 @@ export default function JobAnalysis() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const [isJobSummaryModalOpen, setIsJobSummaryModalOpen] = useState(false);
+
   const filteredJobs = useMemo(() => {
     if (!jobTitle) return [];
     if (jobTitlesList.includes(jobTitle)) return [];
-
     return jobTitlesList.filter(job => job.toLowerCase().includes(jobTitle.toLowerCase()));
   }, [jobTitle]);
 
@@ -121,20 +125,11 @@ export default function JobAnalysis() {
       ...week.domestic,
       ...week.global,
     ]);
-
     const uniqueKeywords = allKeywords.filter((keyword, index, self) =>
       index === self.findIndex((t) => t.keyword === keyword.keyword)
     );
-    return uniqueKeywords.sort(() => Math.random() - 0.5); // 섞기
+    return uniqueKeywords.sort(() => Math.random() - 0.5);
   }, [weeklyKeywords]);
-
-  // 📍 새로운 상태 변수 추가: 직무 요약 토글 상태
-  const [isJobSummaryOpen, setIsJobSummaryOpen] = useState(false);
-
-  // 📍 토글 핸들러 함수
-  const toggleJobSummary = () => {
-    setIsJobSummaryOpen(prev => !prev);
-  };
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -143,18 +138,14 @@ export default function JobAnalysis() {
         setSelectedJob(jobTitle.trim());
         setIsDropdownOpen(false);
       } else {
-        // 이전에 선택된 직무가 있을 경우에만 null로 설정하여 불필요한 상태 업데이트 방지
         setSelectedJob(prev => (prev ? null : prev));
       }
     }, 100);
-
     return () => clearTimeout(handler);
   }, [jobTitle]);
 
   useEffect(() => {
-    // fetcher가 'idle' 상태일 때만 요청을 보내 중복/다중 요청을 방지합니다.
     if (fetcher.state !== 'idle') return;
-
     if (selectedJob && selectedKeyword?.keyword && selectedKeyword?.reason) {
       const formData = new FormData();
       formData.append('query', selectedJob);
@@ -195,12 +186,10 @@ export default function JobAnalysis() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!isDropdownOpen || filteredJobs.length === 0) return;
-
     let currentIndex = -1;
     if (activeDescendant) {
       currentIndex = filteredJobs.findIndex(job => `job-option-${job}` === activeDescendant);
     }
-
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       const nextIndex = (currentIndex + 1) % filteredJobs.length;
@@ -308,12 +297,23 @@ export default function JobAnalysis() {
       {/* 4. 직무 분석 결과 */}
       {selectedJob && selectedKeyword && (
         <div className="rounded-lg bg-[var(--card-light)] p-6 shadow-md dark:bg-[var(--card-dark)]">
+          {/* 직무 요약 버튼 (빨간박스 위치) */}
+          <div className="flex items-center justify-end mb-4">
+            <button
+              onClick={() => setIsJobSummaryModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-1 rounded-lg bg-yellow-200 hover:bg-yellow-300 font-semibold text-yellow-900 shadow transition"
+              aria-label="직무 요약 보기"
+              title="직무 요약 보기"
+            >
+              <Info className="w-5 h-5" />
+              <span>직무 요약: {selectedJob}</span>
+            </button>
+          </div>
+
           <h2 className="mb-4 text-3xl font-bold">
             <span className="text-[var(--accent-color)]">{selectedJob}</span> X <span className="text-blue-400">{selectedKeyword.keyword}</span> 분석
           </h2>
-
           <div className="mb-4 space-y-8">
-
             {/* 긍정적/비판적 분석 */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               <div className="rounded-lg border-l-4 border-blue-500 bg-gray-100 p-5 shadow-md dark:bg-gray-800">
@@ -353,29 +353,14 @@ export default function JobAnalysis() {
             </div>
           </div>
 
-          {/* 직무 요약 - 이 부분을 수정합니다! */}
-            <div className="rounded-lg bg-gray-100 p-6 dark:bg-gray-800">
-              <h3
-                className="mb-3 text-2xl font-semibold text-[var(--accent-color)] cursor-pointer" // cursor-pointer 추가
-                onClick={toggleJobSummary} // 클릭 이벤트 추가
-              >
-                직무 요약: {selectedJob} {isJobSummaryOpen ? '▲' : '▼'} {/* 아이콘 추가 */}
-              </h3>
-              {isJobSummaryOpen && ( // isJobSummaryOpen이 true일 때만 내용 표시
-                fetcher.state === 'loading' || fetcher.state === 'submitting' ? (
-                  <div className="flex min-h-[100px] items-center justify-center rounded-lg bg-gray-200/50 dark:bg-gray-800/50">
-                    <p className="animate-pulse text-lg text-gray-500 dark:text-gray-400">🤔 AI가 직무의 핵심을 파악하고 있어요...</p>
-                </div>
-              ) : (
-                fetcher.data?.summary && (
-                  <div
-                    className="prose prose-invert max-w-none prose-p:my-2"
-                    dangerouslySetInnerHTML={{ __html: marked.parse(fetcher.data.summary) }}
-                  />
-                )
-              )
-              )}
-            </div>
+          {/* 직무 요약 모달 */}
+          <JobSummaryModal
+            isOpen={isJobSummaryModalOpen}
+            onClose={() => setIsJobSummaryModalOpen(false)}
+            jobTitle={selectedJob}
+            isLoading={fetcher.state === 'loading' || fetcher.state === 'submitting'}
+            summary={fetcher.data?.summary}
+          />
         </div>
       )}
     </main>
