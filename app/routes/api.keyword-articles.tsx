@@ -1,7 +1,7 @@
 import { json, LoaderFunctionArgs } from '@remix-run/node';
 import type { Article } from '~/services/news.server';
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -16,7 +16,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   let apiUrl;
   if (region === "global") {
-    apiUrl = `${API_BASE_URL}/api/global-keyword-articles/${encodeURIComponent(
+    apiUrl = `${API_BASE_URL}/global-keyword-articles/${encodeURIComponent(
       keyword,
     )}?start_date=${startDate}&end_date=${endDate}`;
   } else {

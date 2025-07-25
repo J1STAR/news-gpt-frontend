@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
 
 export type TrendingKeyword = {
   country: string;
@@ -21,7 +21,7 @@ const COUNTRIES = ['KR', 'US', 'MX', 'GB', 'IN', 'ZA', 'AU'];
 export async function getTrendingKeywords(): Promise<TrendingKeyword[]> {
   try {
     const queryParams = COUNTRIES.map(c => `country_codes=${c}`).join("&");
-    const res = await fetch(`${API_BASE_URL}/api/trending?${queryParams}`);
+    const res = await fetch(`${API_BASE_URL}/trending?${queryParams}`);
     
     if (!res.ok) {
       throw new Error(`Failed to fetch trending keywords: ${res.statusText}`);
@@ -42,7 +42,7 @@ export async function getTrendingKeywords(): Promise<TrendingKeyword[]> {
 
 export async function getNewsForKeyword(country: string, keyword: string): Promise<NewsArticle[]> {
     try {
-        const res = await fetch(`${API_BASE_URL}/api/news?country=${country}&keyword=${encodeURIComponent(keyword)}`);
+        const res = await fetch(`${API_BASE_URL}/news?country=${country}&keyword=${encodeURIComponent(keyword)}`);
         if (!res.ok) {
             throw new Error(`News API error: ${res.status}`);
         }
@@ -56,7 +56,7 @@ export async function getNewsForKeyword(country: string, keyword: string): Promi
 
 export async function getGptCommentary(country: string, keyword: string, headlines: string[]): Promise<GptCommentary> {
     try {
-        const res = await fetch(`${API_BASE_URL}/api/gpt-commentary`, {
+        const res = await fetch(`${API_BASE_URL}/gpt-commentary`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ country, keyword, headlines })

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://127.0.0.1:8000';
+const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
 export async function analyzeJob(query: string, keyword: string, reason: string) {
   if (!query) {
@@ -8,7 +8,7 @@ export async function analyzeJob(query: string, keyword: string, reason: string)
   console.log(`📊 직무/산업 분석 요청: 관점='${query}', 대상 키워드='${keyword}', 이유: '${reason}'`);
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/job-analysis`, {
+    const response = await fetch(`${API_BASE_URL}/job-analysis`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
