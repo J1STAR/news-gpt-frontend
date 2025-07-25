@@ -18,18 +18,82 @@ type JobAnalysisData = {
 };
 
 const jobTitlesList = [
+  // IT/개발
   '프론트엔드 개발자',
   '백엔드 개발자',
   '풀스택 개발자',
   'DevOps 엔지니어',
-  '데이터 사이언티스트',
-  '데이터 분석가',
-  '프로덕트 매니저(PM)',
-  '프로덕트 오너(PO)',
-  'UI/UX 디자이너',
-  'QA 엔지니어',
+  '클라우드 엔지니어',
   '안드로이드 개발자',
   'iOS 개발자',
+  '임베디드 개발자',
+  '게임 개발자',
+  'QA 엔지니어',
+  '보안 엔지니어',
+  '블록체인 개발자',
+  '네트워크 엔지니어',
+  '시스템 관리자',
+
+  // 데이터
+  '데이터 사이언티스트',
+  '데이터 분석가',
+  '데이터 엔지니어',
+  '머신러닝 엔지니어',
+  'AI 연구원',
+  '비즈니스 인텔리전스 개발자(BI)',
+  '데이터베이스 관리자(DBA)',
+
+  // 기획/디자인
+  '프로덕트 매니저(PM)',
+  '프로덕트 오너(PO)',
+  '서비스 기획자',
+  '프로젝트 매니저',
+  'UI/UX 디자이너',
+  'UX 리서처',
+  '그래픽 디자이너',
+  '프로덕트 디자이너',
+  '모션 디자이너',
+  '기술 작가',
+
+  // 마케팅/세일즈
+  '디지털 마케터',
+  '콘텐츠 마케터',
+  '퍼포먼스 마케터',
+  'CRM 마케터',
+  '그로스 해커',
+  'SEO 전문가',
+  '브랜드 매니저',
+  '영업 관리자',
+  '비즈니스 개발 매니저(BDM)',
+  '고객 성공 매니저(CSM)',
+
+  // 경영/인사/재무
+  '인사 담당자 (HR)',
+  '채용 담당자 (Recruiter)',
+  '경영 컨설턴트',
+  '전략 기획자',
+  '재무 분석가',
+  '회계사',
+  'M&A 전문가',
+
+  // 미디어/콘텐츠
+  '영상 PD',
+  '기자',
+  '에디터',
+  '유튜버/크리에이터',
+  '사운드 디자이너',
+
+  // 기타 전문직
+  '의사',
+  '변호사',
+  '교사',
+  '작가',
+  '건축가',
+  '약사',
+  '수의사',
+  '연구원',
+  '통역가/번역가',
+  '요리사',
 ];
 
 export default function JobAnalysis() {
@@ -71,16 +135,18 @@ export default function JobAnalysis() {
         setSelectedJob(jobTitle.trim());
         setIsDropdownOpen(false);
       } else {
-        if (selectedJob) {
-          setSelectedJob(null);
-        }
+        // 이전에 선택된 직무가 있을 경우에만 null로 설정하여 불필요한 상태 업데이트 방지
+        setSelectedJob(prev => (prev ? null : prev));
       }
     }, 100);
 
     return () => clearTimeout(handler);
-  }, [jobTitle, selectedJob]);
+  }, [jobTitle]);
 
   useEffect(() => {
+    // fetcher가 'idle' 상태일 때만 요청을 보내 중복/다중 요청을 방지합니다.
+    if (fetcher.state !== 'idle') return;
+
     if (selectedJob && selectedKeyword?.keyword && selectedKeyword?.reason) {
       const formData = new FormData();
       formData.append('query', selectedJob);
@@ -88,7 +154,7 @@ export default function JobAnalysis() {
       formData.append('reason', selectedKeyword.reason);
       fetcher.submit(formData, { method: 'post', action: '/api/job-analysis' });
     }
-  }, [selectedJob, selectedKeyword, fetcher]);
+  }, [selectedJob, selectedKeyword]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -165,7 +231,7 @@ export default function JobAnalysis() {
                 setIsDropdownOpen(true);
               }
             }}
-            placeholder="예: '프론트엔드 개발자'를 입력 후 선택하시면 키워드를 선택하실 수 있어요!"
+            placeholder="'프론트엔드 개발자'를 입력 후 선택하시면 키워드를 선택하실 수 있어요!"
             className="w-full rounded-lg border-2 border-gray-300 bg-white p-4 text-lg text-gray-900 focus:border-[var(--accent-color)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]/50 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
             role="combobox"
             aria-expanded={isDropdownOpen ? 'true' : 'false'}
@@ -238,7 +304,7 @@ export default function JobAnalysis() {
             <span className="text-[var(--accent-color)]">{selectedJob}</span> X <span className="text-blue-400">{selectedKeyword.keyword}</span> 분석
           </h2>
 
-          <div className="space-y-8">
+          <div className="mb-4 space-y-8">
 
             {/* 긍정적/비판적 분석 */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
