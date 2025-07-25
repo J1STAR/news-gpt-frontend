@@ -108,8 +108,8 @@ export default function Trending() {
 
         {/* Right Column: Analysis */}
         <div className="w-full lg:w-2/3">
-          <div className="rounded-lg bg-[var(--card-light)] p-6 shadow-md dark:bg-[var(--card-dark)] min-h-[500px]">
-            {fetcher.state === 'loading' && (
+          <div className={`rounded-lg bg-[var(--card-light)] p-6 shadow-md dark:bg-[var(--card-dark)] min-h-[500px] ${fetcher.state === 'loading' || fetcher.state === 'submitting' ? 'opacity-50' : ''}`}>
+            {(fetcher.state === 'loading' || fetcher.state === 'submitting') && (
               <div className="flex items-center justify-center h-full">
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                   <div className="w-5 h-5 border-2 border-gray-200 border-t-[var(--accent-color)] rounded-full animate-spin"></div>
@@ -117,7 +117,7 @@ export default function Trending() {
                 </div>
               </div>
             )}
-            {fetcher.data && (
+            {fetcher.data && fetcher.state === 'idle' && (
               <>
                 <h2 className="text-2xl font-bold mb-4">🧠 사람들은 왜 이것을 검색했을까?</h2>
                 <div className="mb-6 p-4 bg-gray-100 rounded-lg border-l-4 border-[var(--accent-color)] dark:bg-gray-800">
@@ -141,7 +141,7 @@ export default function Trending() {
                 </div>
               </>
             )}
-            {!fetcher.data && fetcher.state !== 'loading' && (
+            {!fetcher.data && fetcher.state === 'idle' && (
                 <div className="flex items-center justify-center h-full">
                     <p className="text-gray-500">키워드를 선택하여 분석 결과를 확인하세요.</p>
                 </div>

@@ -48,7 +48,7 @@ async function fetchKeywords(
 }
 
 export async function getWeeklyKeywords(): Promise<WeeklyKeywordData[]> {
-  const weeksRanges = getPastWeeksRanges(3); // Get ranges for the past 3 weeks
+  const weeksRanges = getPastWeeksRanges(2); // Get ranges for the past n weeks
 
   const weeklyData = await Promise.all(
     weeksRanges.map(async (week) => {

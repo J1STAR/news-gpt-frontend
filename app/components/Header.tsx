@@ -1,6 +1,8 @@
 import { Link, NavLink } from "@remix-run/react";
 import { useState, useEffect } from "react";
 
+import seesawLogo from "../images/seesaw.png";
+
 type HeaderProps = {
   onSubscribeClick: () => void;
 };
@@ -30,9 +32,11 @@ export default function Header({ onSubscribeClick }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full bg-[var(--card-light)] dark:bg-[var(--card-dark)] shadow-md transition-colors duration-300">
       <div className="container mx-auto flex items-center justify-between whitespace-nowrap px-6 py-4">
         <div className="flex items-center gap-8">
-          <Link to="/" className="flex items-center gap-3 text-2xl font-bold text-[var(--accent-color)]">
-            <span style={{ fontSize: '24px' }}>📺</span>
-            <h1 className="ml-2 text-2xl">NewsGPT</h1>
+          <Link to="/" className="flex items-center gap-1 text-2xl font-bold text-[var(--accent-color)]">
+            <span style={{ fontSize: '32px' }}>
+              <img src={seesawLogo} alt="SEESAW" width={32} height={32} />
+            </span>
+            <h1 className="text-2xl">SEESAW</h1>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <NavLink to="/trending" className={navLinkClasses}>

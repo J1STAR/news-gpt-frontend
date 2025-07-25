@@ -16,7 +16,7 @@ export default function IndustryAnalysisResults({ selectedKeyword, onIndustryCli
   const fetcher = useFetcher<IndustryAnalysisData>();
   const [activeIndustry, setActiveIndustry] = useState<string | null>(null);
   
-  const industries = ['사회', '경제', 'IT/과학', '생활/문화', '세계'];
+  const industries = ['제조업', '정보통신업', '건설업', '교육 서비스업', '금융 및 보험업', '소비자 서비스업', '무역업', '운송업'];
 
   useEffect(() => {
     if (!selectedKeyword || !activeIndustry) {
@@ -54,8 +54,13 @@ export default function IndustryAnalysisResults({ selectedKeyword, onIndustryCli
         })}
       </div>
       <div className="min-h-[200px] rounded-lg bg-gray-100 p-6 leading-relaxed text-gray-800 shadow-inner dark:bg-gray-800 dark:text-gray-300">
-        {fetcher.state === 'loading' ? (
-          <div className="text-center text-gray-500 dark:text-gray-400">🤔 다양한 관점에서 분석 중...</div>
+        {(fetcher.state === 'loading' || fetcher.state === 'submitting') ? (
+          <div className="flex h-full min-h-[200px] items-center justify-center">
+            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-200 border-t-[var(--accent-color)]"></div>
+              <span>🤔 다양한 관점에서 분석 중...</span>
+            </div>
+          </div>
         ) : fetcher.data ? (
           <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
             <div className="rounded-lg border-l-4 border-blue-500 bg-white p-5 shadow-md dark:bg-gray-700">
@@ -74,7 +79,9 @@ export default function IndustryAnalysisResults({ selectedKeyword, onIndustryCli
             </div>
           </div>
         ) : (
-          <div className="text-center text-gray-500 dark:text-gray-400">분석할 키워드를 선택해주세요</div>
+          <div className="flex h-full min-h-[200px] items-center justify-center">
+            <div className="text-center text-gray-500 dark:text-gray-400">분석할 키워드를 선택해주세요</div>
+          </div>
         )}
       </div>
     </div>
