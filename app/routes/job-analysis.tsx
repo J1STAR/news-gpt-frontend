@@ -5,7 +5,7 @@ import { marked } from 'marked';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getWeeklyKeywords, Keyword, WeeklyKeywordData } from '~/services/industry-analysis.server';
 // 모달 컴포넌트 import
-import JobSummaryModal from './JobSummaryModal';
+import JobSummaryModal from '../components/JobSummaryModal';
 
 export const loader: LoaderFunction = async () => {
   const weeklyKeywords = await getWeeklyKeywords();
