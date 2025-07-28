@@ -47,6 +47,11 @@ export default function IndustryAnalysis() {
 
   return (
     <main className="container mx-auto max-w-7xl flex-1 px-6 py-10">
+      <div className="">
+        <h1 className="text-4xl font-bold mb-2 text-[var(--accent-color)]">키워드 심층 분석</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-400">지난 주의 뉴스 키워드를 <br/>내 <strong>&rsquo;산업&rsquo;</strong> 관점에서 어떻게 해석해야 할까요? </p>
+      </div>
+
       <div className="flex gap-10">
         <div className="w-[40%]">
           <WeeklySummary

@@ -212,7 +212,12 @@ export default function JobAnalysis() {
   };
 
   return (
-    <main className="container mx-auto max-w-4xl flex-1 px-6 py-10">
+    <main className="container mx-auto max-w-7xl flex-1 px-6 py-10">
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold mb-2 text-[var(--accent-color)]">키워드 심층 분석</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-400">지난 주의 뉴스 키워드를 <br />내 <strong>&rsquo;직무&rsquo;</strong> 관점에서 어떻게 해석해야 할까요? </p>
+      </div>
+
       {/* 1. 직무 입력 */}
       <div className="mb-12 rounded-lg bg-[var(--card-light)] p-6 shadow-md dark:bg-[var(--card-dark)]">
         <h2 className="mb-4 text-3xl font-bold">직무 입력</h2>
