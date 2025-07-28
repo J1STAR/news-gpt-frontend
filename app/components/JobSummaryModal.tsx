@@ -31,7 +31,7 @@ export default function JobSummaryModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
       onClick={handleBackgroundClick}
     >
-      <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-2xl p-8 max-w-lg w-full">
+      <div className="relative h-[800px] bg-white dark:bg-gray-900 rounded-xl shadow-2xl p-8 max-w-lg w-full">
         <button
           className="absolute top-3 right-4 text-gray-400 hover:text-gray-600"
           onClick={onClose}
@@ -50,7 +50,7 @@ export default function JobSummaryModal({
         ) : (
           summary ? (
             <div
-              className="prose prose-invert max-w-none prose-p:my-2"
+              className="h-[calc(100%-44px)] prose prose-invert max-w-none prose-p:my-2 overflow-y-auto"
               dangerouslySetInnerHTML={{ __html: marked.parse(summary) }}
             />
           ) : (
