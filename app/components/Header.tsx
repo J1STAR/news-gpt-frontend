@@ -40,7 +40,7 @@ export default function Header({ onSubscribeClick }: HeaderProps) {
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <NavLink to="/trending" className={navLinkClasses}>
+            <NavLink to="/" className={navLinkClasses}>
               글로벌 인기 검색어
             </NavLink>
             <NavLink to="/industry-analysis" className={navLinkClasses}>
