@@ -52,9 +52,9 @@ export default function Trending() {
 
   return (
     <main className="container mx-auto max-w-7xl flex-1 px-6 py-10">
-      <div className="text-center mb-8">
+      <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2 text-[var(--accent-color)]">지금 세계는 이걸 검색 중!</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400">우리 뉴스에는 없던 이야기, 다른 나라 사람들은 이미 보고 있었어요.</p>
+        <p className="text-lg text-gray-600 dark:text-gray-400">우리 뉴스에는 없던 이야기, <br />다른 나라 사람들은 이미 보고 있었어요.</p>
         <p className="text-sm text-gray-500 mt-2">📅 키워드 수집 시간: {collectionTime}</p>
       </div>
       

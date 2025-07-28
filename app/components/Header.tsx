@@ -38,17 +38,21 @@ export default function Header({ onSubscribeClick }: HeaderProps) {
             </span>
             <h1 className="text-2xl">SEESAW</h1>
           </Link>
-          <nav className="hidden md:flex items-center gap-6">
+
+          <nav className="hidden md:flex items-center gap-8">
             <NavLink to="/trending" className={navLinkClasses}>
-              Trend
+              글로벌 인기 검색어
             </NavLink>
             <NavLink to="/industry-analysis" className={navLinkClasses}>
-              산업 분석
+              산업별 키워드 분석
             </NavLink>
             <NavLink to="/job-analysis" className={navLinkClasses}>
-              직무 분석
+              직무별 키워드 분석
             </NavLink>
           </nav>
+        </div>
+        <div className="">
+          
         </div>
         <div className="flex items-center gap-4">
           <button
