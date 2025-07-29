@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { marked } from 'marked';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api/v1';
-
 type Message = {
     sender: 'user' | 'bot';
     text: string;
@@ -49,7 +47,7 @@ export default function ChatbotModal({ isOpen, onClose }: ChatbotModalProps) {
 
         try {
             const controller = new AbortController();
-            const response = await fetch(`${API_BASE_URL}/chat`, {
+            const response = await fetch(`/api/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
