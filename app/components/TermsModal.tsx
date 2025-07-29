@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+
 type TermsModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -5,16 +7,31 @@ type TermsModalProps = {
 };
 
 export default function TermsModal({ isOpen, onClose, onAgree }: TermsModalProps) {
+  const [scrolledToBottom, setScrolledToBottom] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) setScrolledToBottom(false); // 모달 열릴 때 초기화
+  }, [isOpen]);
+
+  const handleScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 5;
+    if (atBottom) setScrolledToBottom(true);
+  };
+
   if (!isOpen) return null;
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      onClick={onClose} // 👉 배경 누르면 모달 닫힘
+      onClick={onClose}
     >
       <div
         className="relative w-full max-w-2xl rounded-lg bg-white p-8 shadow-lg dark:bg-gray-800"
-        onClick={(e) => e.stopPropagation()} // 👉 내부 클릭은 닫히지 않음
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
@@ -23,12 +40,18 @@ export default function TermsModal({ isOpen, onClose, onAgree }: TermsModalProps
           &times;
         </button>
         <h2 className="text-xl font-bold mb-4">🛡 이용약관</h2>
-        <div className="h-[300px] overflow-y-auto text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-4 pr-2">
+
+        {/* 🔍 약관 스크롤 영역 */}
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="h-[300px] overflow-y-auto text-sm text-gray-700 dark:text-gray-300 leading-relaxed space-y-4 pr-2"
+        >
           <p>
             본 서비스(이하 ‘시소’)는 다양한 뉴스 데이터를 기반으로 GPT 기반 AI 분석 결과 및 키워드 중심 견해를 제공합니다.
             사용자는 아래 내용을 충분히 숙지하고 동의한 뒤 서비스를 이용해주시기 바랍니다.
           </p>
-          {/* 이하 약관 전문 그대로 유지 */}
+
           <h3 className="font-semibold">1. 서비스의 성격</h3>
           <ul className="list-disc list-inside space-y-1">
             <li>시소는 다양한 국내·외 뉴스 및 오픈소스 데이터를 바탕으로 AI가 분석한 키워드, 인사이트, 직무 기반 해석을 제공합니다.</li>
@@ -60,9 +83,10 @@ export default function TermsModal({ isOpen, onClose, onAgree }: TermsModalProps
           <p className="text-xs text-gray-500 dark:text-gray-400">
             📍 문의: support@siso.ai<br />
             📅 최종 수정일: 2025.07.29
-            </p>
+          </p>
         </div>
 
+        {/* ✅ 버튼 영역 */}
         <div className="mt-6 flex justify-end gap-2">
           <button
             onClick={onClose}
@@ -72,7 +96,10 @@ export default function TermsModal({ isOpen, onClose, onAgree }: TermsModalProps
           </button>
           <button
             onClick={onAgree}
-            className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+            disabled={!scrolledToBottom}
+            className={`px-4 py-2 rounded-lg text-white transition-colors ${
+              scrolledToBottom ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'
+            }`}
           >
             동의하고 닫기
           </button>
